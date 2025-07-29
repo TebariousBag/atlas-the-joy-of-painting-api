@@ -51,7 +51,7 @@ async function run() {
 		// using update to make sure we still have current colorName
 		// this returns the id to colorQuery
 		const colorQuery = await client.query(
-          `INSERT INTO color (color_name)
+          `INSERT INTO colors (color_name)
            VALUES ($1)
            ON CONFLICT (color_name) DO UPDATE
            SET color_name = EXCLUDED.color_name
@@ -63,7 +63,7 @@ async function run() {
         const colorId = colorQuery.rows[0].color_id;
 
         await client.query(
-          `INSERT INTO episode_color (episode_id, color_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+          `INSERT INTO episode_colors (episode_id, color_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
           [episodeId, colorId]
         );
 		// log that color was added
