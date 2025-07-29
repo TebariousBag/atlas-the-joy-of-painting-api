@@ -4,7 +4,7 @@
 ![alt text](image.png)
 
 ## My Tables
-Focusing on filtering by month, subject, and colors used.
+Focusing on filtering by air_date, subject, and colors used.
 
 I have five tables.
 * episodes
@@ -20,9 +20,14 @@ I have five tables.
 * episode_color (junction)
 	* episode_id (FK)
 	* color_id (FK)
-	* composite PK: (episode_id, color_id)
 * episode_subject (junction)
 	* episode_id (FK)
 	* subject_id (FK)
-	* composite PK: (episode_id, subject_id)
 
+## What information to get from each file
+* File 1
+	* insert episodes, colors, and episode_color
+* File 3
+	* update episodes table with the air_date
+* File 2
+	* insert subjects and episode_subject
