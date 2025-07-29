@@ -1,3 +1,11 @@
+-- Drop tables if they exist already, so that way we are starting fresh each time
+DROP TABLE IF EXISTS episode_color;
+DROP TABLE IF EXISTS episode_subject;
+DROP TABLE IF EXISTS color;
+DROP TABLE IF EXISTS subject;
+DROP TABLE IF EXISTS episodes;
+
+
 -- Creating our 5 main tables I decided to start with
 
 -- 3 main tables first with primary keys
