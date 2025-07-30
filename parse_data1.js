@@ -19,6 +19,11 @@ async function run() {
   // read stream from first file, columns true treats the first line as header
   // and use those headers as keys for the data in each row
   const parser = fs.createReadStream('datasets/dataset1.csv').pipe(parse({ columns: true, trim: true }));
+  // parses row by row and should give us something like this
+  // EPISODE,TITLE,CABIN,TREE
+  // S01E01,"A Walk in the Woods",1,1
+  // S01E02,"Mountain Retreat",0,1
+  
   // loop through each line that we parsed
   for await (const row of parser) {
     try {
