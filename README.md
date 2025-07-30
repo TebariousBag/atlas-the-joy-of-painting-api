@@ -1,7 +1,7 @@
 # ETL: The Joy of Coding
 
 ## My ERD
-![alt text](image.png)
+![alt text](images/image.png)
 
 ## My Tables
 Focusing on filtering by air_date, subject, and colors used.
