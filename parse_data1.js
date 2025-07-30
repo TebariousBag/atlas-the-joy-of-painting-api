@@ -18,7 +18,7 @@ async function run() {
   await client.connect();
   // read stream from first file, columns true treats the first line as header
   // and use those headers as keys for the data in each row
-  const parser = fs.createReadStream('dataset1.csv').pipe(parse({ columns: true, trim: true }));
+  const parser = fs.createReadStream('datasets/dataset1.csv').pipe(parse({ columns: true, trim: true }));
   // loop through each line that we parsed
   for await (const row of parser) {
     try {
@@ -71,7 +71,9 @@ async function run() {
       }
 
 	  // log each time an episode is added
-      console.log(`  INSERTED EPISODE: ${title}`);
+	  console.log(' \n -------------------------------- ');
+      console.log(`  INSERTED EPISODE: ${title} (above)`);
+	  console.log(' \n -------------------------------- ');
 	  // and log if there was an error adding an episode
     } catch (err) {
       console.error('Error adding episode:', err);
@@ -79,7 +81,9 @@ async function run() {
   }
   // log when the whole file has beed added
   await client.end();
-  console.log(' \n Dataset1.csv is done being added. \n');
+  console.log(' \n -------------------------------- ');
+  console.log(' \n Dataset1.csv is done being added.');
+  console.log(' \n -------------------------------- ');
 }
 
 // finally we run it and catch any errors
