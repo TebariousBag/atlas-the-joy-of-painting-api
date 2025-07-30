@@ -14,14 +14,28 @@ const getAllEpisodes = async(req, res) => {
 };
 
 const getAllSubjects = async(req, res) => {
-  // just trying to get everything connected
-  res.json({ message: 'testing routes, all subjects' });
-}
+  try {
+    // query for select all subjects
+    const queryResult = await client.query('SELECT * FROM subjects ORDER BY subject_id');
+    // send response of query as json
+    res.json(queryResult.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'all subjects error' });
+  }
+};
 
 const getAllColors = async(req, res) => {
-  // just trying to get everything connected
-  res.json({ message: 'testing routes, all colors' });
-}
+  try {
+    // query for select all colors
+    const queryResult = await client.query('SELECT * FROM colors ORDER BY color_id');
+    // send response of query as json
+    res.json(queryResult.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'all colors error' });
+  }
+};
 
 module.exports = {
   getAllEpisodes,
