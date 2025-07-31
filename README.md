@@ -11,16 +11,16 @@ I have five tables.
 	* episode_id (PK)
 	* title
 	* air_date
-* color
+* colors
 	* color_id (PK)
 	* color_name
-* subject
+* subjects
 	* subject_id (PK)
 	* subject_name
-* episode_color (junction)
+* episode_colors (junction)
 	* episode_id (FK)
 	* color_id (FK)
-* episode_subject (junction)
+* episode_subjects (junction)
 	* episode_id (FK)
 	* subject_id (FK)
 
