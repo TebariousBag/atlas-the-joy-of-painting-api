@@ -5,5 +5,7 @@ const onlyController = require('../controllers/onlyController');
 // all endpoints go here
 // just trying to figure out how to connect everything
 router.get('/', onlyController.getAllEpisodes);
+router.get('/', onlyController.getAllColors);
+router.get('/', onlyController.getAllSubjects);
 
 module.exports = router;
