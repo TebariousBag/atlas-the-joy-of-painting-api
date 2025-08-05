@@ -77,6 +77,7 @@ const getAllColors = async(req, res) => {
   }
 };
 
+
 module.exports = {
   getAllEpisodes,
   getAllColors,
