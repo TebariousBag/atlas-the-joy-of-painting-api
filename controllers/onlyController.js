@@ -19,27 +19,31 @@ const monthMap = {
 // just trying to layout everything
 const getAllEpisodes = async(req, res) => {
   try {
+    console.log('getAllEpisodes was called');
     const { month } = req.query;
+    console.log('Received month:', month);
     let queryText = 'SELECT * FROM episodes';
     const params = [];
 
     if (month) {
       let monthNumber = parseInt(month, 10);
-
-      // Convert from string to number if needed
+      // convert from string to number if needed
       if (isNaN(monthNumber)) {
         monthNumber = monthMap[month.toLowerCase()];
       }
 
       if (!monthNumber || monthNumber < 1 || monthNumber > 12) {
-        return res.status(400).json({ error: 'Invalid month. Use number (1–12) or full month name.' });
+        return res.status(400).json({ error: 'Invalid month. Use number (1–12) or month name.' });
       }
-
+      // our query text
       queryText += ' WHERE EXTRACT(MONTH FROM air_date) = $1';
       params.push(monthNumber);
     }
 
     queryText += ' ORDER BY episode_id';
+    // logging to find problems
+    console.log('Final query:', queryText);
+    console.log('With params:', params);
 
     const queryResult = await client.query(queryText, params);
     res.json(queryResult.rows);

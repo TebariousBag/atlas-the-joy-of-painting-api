@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const onlyController = require('../controllers/onlyController');
 
-// all endpoints go here
-// just trying to figure out how to connect everything
+// episodes route
 router.get('/', onlyController.getAllEpisodes);
-router.get('/', onlyController.getAllColors);
-router.get('/', onlyController.getAllSubjects);
+
+// test route to make sure it is working
+router.get('/test', (req, res) => {
+  console.log('/episodes/test route hit');
+  res.send('episodes router is working');
+});
 
 module.exports = router;

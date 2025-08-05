@@ -15,6 +15,7 @@ app.use(express.json());
 
 // mount routes for each
 app.use('/episodes', episodesRoutes);
+console.log('episodesRoutes mounted');
 app.use('/subjects', subjectsRoutes);
 app.use('/colors', colorsRoutes);
 
