@@ -1,31 +1,67 @@
 const express = require('express');
 const cors = require('cors');
-// connection to routers
+
+// Import route modules
 const episodesRoutes = require('./routes/episodeRouter');
 const subjectsRoutes = require('./routes/subjectRouter');
 const colorsRoutes = require('./routes/colorRouter');
 
+/**
+ * Express application instance
+ * Main server configuration and middleware setup
+ */
 const app = express();
-// i might need to change this
-const PORT = 3432;
-// use cors to allow requests from different ports
-app.use(cors());
-// so we can parse json into js
-app.use(express.json());
 
-// mount routes for each
+// Server configuration
+const PORT = process.env.PORT || 3432;
+
+// Middleware configuration
+app.use(cors()); // Enable CORS for cross-origin requests
+app.use(express.json()); // Parse JSON request bodies
+
+// Route mounting
 app.use('/episodes', episodesRoutes);
-console.log('episodesRoutes mounted');
 app.use('/subjects', subjectsRoutes);
 app.use('/colors', colorsRoutes);
 
-// log for / endpoint
-// testing to make sure it works
+// Health check endpoint
 app.get('/', (req, res) => {
-  res.send('this is bobbie ross');
+  res.json({
+    message: 'The Joy of Painting API',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      episodes: '/episodes',
+      subjects: '/subjects',
+      colors: '/colors'
+    }
+  });
 });
 
-// start listening, and log which port
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({
+    error: 'Internal server error',
+    message: 'Something went wrong on our end. Please try again later.'
+  });
+});
+
+// 404 handler for undefined routes
+app.use('*', (req, res) => {
+  res.status(404).json({
+    error: 'Route not found',
+    message: `The requested route ${req.originalUrl} does not exist.`,
+    availableRoutes: ['/episodes', '/subjects', '/colors']
+  });
+});
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`🎨 The Joy of Painting API is running on http://localhost:${PORT}`);
+  console.log(`📚 Available endpoints:`);
+  console.log(`   - GET /episodes - Retrieve episodes with filtering`);
+  console.log(`   - GET /subjects - Get all painting subjects`);
+  console.log(`   - GET /colors - Get all paint colors`);
+  console.log(`   - GET / - API information and health check`);
 });

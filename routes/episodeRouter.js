@@ -2,13 +2,23 @@ const express = require('express');
 const router = express.Router();
 const onlyController = require('../controllers/onlyController');
 
-// episodes route
+/**
+ * Episode Routes
+ * 
+ * Provides endpoints for retrieving episode data with filtering capabilities
+ */
+
+// GET /episodes - Retrieve all episodes with optional filtering
 router.get('/', onlyController.getAllEpisodes);
 
-// test route to make sure it is working
+// GET /episodes/test - Test endpoint for router verification
 router.get('/test', (req, res) => {
   console.log('/episodes/test route hit');
-  res.send('episodes router is working');
+  res.json({
+    message: 'Episodes router is working correctly',
+    endpoint: '/episodes/test',
+    timestamp: new Date().toISOString()
+  });
 });
 
 module.exports = router;
